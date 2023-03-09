@@ -1,7 +1,13 @@
 from fastapi import FastAPI
+import models
+import projects as projects_endpoint
 import uvicorn
+from database import engine
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Portfolio Backend", version="0.0.1")
+app.include_router(projects_endpoint.router, tags=['Projects'], prefix='/projects')
 
 
 @app.get("/")
@@ -21,28 +27,28 @@ async def index():
     }}
 
 
-@app.get("/tech_stack")
-async def index():
-    # Hardcoded for now
-    return {"status": True, "detail": {
-        "directions": [{"name": "Python", "info": "Dev"}]
-    }}
+# @app.get("/tech_stack")
+# async def index():
+#     # Hardcoded for now
+#     return {"status": True, "detail": {
+#         "directions": [{"name": "Python", "info": "Dev"}]
+#     }}
 
 
-@app.get("/projects")
-async def index():
-    return {"status": True, "detail": "Projects placeholder"}
+# @app.get("/projects")
+# async def index():
+#     return {"status": True, "detail": "Projects placeholder"}
 
 
-@app.get("/hackathons")
-async def index():
-    return {"status": True, "detail": "Hackathons placeholder"}
+# @app.get("/hackathons")
+# async def index():
+#     return {"status": True, "detail": "Hackathons placeholder"}
 
 
-@app.get("/blogs")
-async def index():
-    return {"status": True, "detail": "Hackathons placeholder"}
+# @app.get("/blogs")
+# async def index():
+#     return {"status": True, "detail": "Hackathons placeholder"}
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8080, host="0.0.0.0")
+    uvicorn.run("main:app", port=8080, host="0.0.0.0", reload=True)
