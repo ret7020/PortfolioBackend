@@ -13,7 +13,7 @@ from fastapi_utils.guid_type import GUID, GUID_DEFAULT_SQLITE
 #     updatedAt = Column(TIMESTAMP(timezone=True),
 #                        default=None, onupdate=func.now())
 
-class Projects(Base):
+class Project(Base):
     '''
     Store projects with translations and images
     '''
